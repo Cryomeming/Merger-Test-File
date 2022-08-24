@@ -176,7 +176,7 @@ class button(QPushButton):
 class AppDemo(QWidget):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle('Sample Text')
+        self.setWindowTitle('Desktop Merge Testing Platform App')
         self.setWindowIcon(QIcon(resource_path(r'PDF.ico')))
         self.resize(1850, 850)
         self.initUI()
