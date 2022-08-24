@@ -191,10 +191,13 @@ class AppDemo(QWidget):
 
         ### The OutputFolderRow Buttons ###
 
-        # OutputFolderRow: Merge #
-        self.buttonMerge = button('Merge!')
-        self.buttonMerge.clicked.connect(self.mergeTest)
+        # OutputFolderRow: PDF Merge Button #
+        self.buttonMerge = button('Merge your PDFs')
+        self.buttonMerge.clicked.connect(self.mergePDFTest)
         outputFolderRow.addWidget(self.buttonMerge)
+
+        self.buttonMerge2 = button('DOCX Test merge')
+        outputFolderRow.addWidget(self.buttonMerge2)
 
         # buttonLayout: Drop-down List #
         self.dropdownlist = FileChoiceDropList()
@@ -230,9 +233,9 @@ class AppDemo(QWidget):
         dialog.setEscapeButton(escapebutton)
         dialog.show()
 
-    def mergeTest(self):
+    def mergePDFTest(self):
         if self.fileQueue.count() > 0:
-            pdfMerger = PdfFileMerger
+            pdfMerger = PdfFileMerger()
 
             try:
                 for i in range(self.fileQueue.count()):
@@ -244,14 +247,22 @@ class AppDemo(QWidget):
                 self.fileQueue.clear()
                 self.dialogMessage("Completed thing", "Please thank the people of PyPDF2 for creating this incredible module", icon=QMessageBox.Information, button=QMessageBox.Ok, escapebutton=QMessageBox.Ok)
 
-            except Exception as e:
-                #self.dialogMessage("PDFs were unable to merge properly.", "There may have been some issues in the creation of the mergeFile Function. Please see what may be the issue.", icon=QMessageBox.Critical, button=QMessageBox.Ok, escapebutton=QMessageBox.Ok)
-                self.dialogMessage(e,e,e,e)
+            except Exception:
+                self.dialogMessage("PDFs were unable to merge properly.", "Something was missing within the program. Please add more to fix the issue.", icon=QMessageBox.Critical, button=QMessageBox.Ok, escapebutton=QMessageBox.Ok)
+
+            # use this sparingly. This was only used for testing purposes. #
+            #except Exception as e:
+                #self.dialogMessage(e,e,e,e,e)
 
         else:
-            self.dialogMessage("Nothing was sensed by the program.", "Potential problem with your code being unable to be noticed by the program. Use the Debugger to find the issues", icon=QMessageBox.Warning, button=QMessageBox.Cancel, escapebutton=QMessageBox.Cancel)
-        # elif self.fileQueue.count() > 0 and self.fileQueue.item() == "*.docx*":
-        #    output = aw.Document()
+            self.dialogMessage("Nothing was sensed by the program.", "During the code, something wasn't set properly. Either test the program using the debugger to find out the problem.", icon=QMessageBox.Warning, button=QMessageBox.Cancel, escapebutton=QMessageBox.Cancel)
+
+
+    def mergeDOCXTest(self):
+        if self.fileQueue.count() > 0:
+            testing = aw.Document()
+            testing.remove_all_children()
+
 
 
 
